@@ -4,7 +4,7 @@
   "description": "A web app for music fans who want to listen/share new music",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/",
+   "test": "mocha test/",
    "tdd": "mocha test/ -w -R min",
    "cover": "nyc --reporter=lcov npm test",
    "start": "node ./server/index.js",

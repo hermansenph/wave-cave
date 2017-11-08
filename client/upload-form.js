@@ -1,10 +1,10 @@
 import React from 'react'
 
-export default function UploadForm({ image, updateArt }) {
+export default function UploadForm({ image, updateArt, handleSubmit }) {
   return (
     <div className="container">
       <div className="card">
-        <form>
+        <form onSubmit={ handleSubmit }>
           <div className="row row-grid">
             <div className="mx-auto">
               <img src={ image } id="upload-art" className="img-thumbnail .img-fluid"/>
@@ -20,18 +20,18 @@ export default function UploadForm({ image, updateArt }) {
           <div className="row row-grid">
             <div className="mx-auto">
               <label className="btn btn-outline-primary">
-                Select Audio File <input type="file" name="audio-file" hidden/>
+                Select Audio File <input type="file" name="audio-file" accept="audio/*" hidden/>
               </label>
             </div>
           </div>
           <div className="row row-grid">
             <div className="col-4 mx-auto">
-              <input className="form-control" type="text" placeholder="Title"/>
+              <input className="form-control" type="text" name="title" placeholder="Title"/>
             </div>
           </div>
           <div className="row row-grid">
             <div className="col-4 mx-auto">
-              <input className="form-control" type="text" placeholder="Artist"/>
+              <input className="form-control" type="text" name="artist" placeholder="Artist"/>
             </div>
           </div>
           <div className="row row-grid">
@@ -47,6 +47,6 @@ export default function UploadForm({ image, updateArt }) {
 
 function UploadImage({ updateArt }) {
   return (
-    <input onChange={ updateArt } type="file" name="image" id="image-upload" accept="image/*" hidden/>
+    <input onChange={ updateArt } type="file" name="image-file" id="image-upload" accept="image/*" hidden/>
   )
 }

@@ -4,15 +4,15 @@
   "description": "A web app for music fans who want to listen/share new music",
   "main": "index.js",
   "scripts": {
-   "test": "mocha test/",
-   "tdd": "mocha test/ -w -R min",
-   "cover": "nyc --reporter=lcov npm test",
-   "start": "node ./server/index.js",
-   "bundle:watch": "watchify ./server/index.js -vd -t babelify -o ./server/public/main.js",
-   "watch:server": "nodemon server",
-   "watch:client": "watchify ./client/index.js -vd -t babelify -o ./server/public/main.js",
-   "watch:sync": "browser-sync start -c sync.js",
-   "watch": "npm-run-all --parallel watch:*"
+    "test": "mocha test/",
+    "tdd": "mocha test/ -w -R min",
+    "cover": "nyc --reporter=lcov npm test",
+    "start": "node ./server/index.js",
+    "bundle:watch": "watchify ./server/index.js -vd -t babelify -o ./server/public/main.js",
+    "watch:server": "nodemon server",
+    "watch:client": "watchify ./client/index.js -vd -t babelify -o ./server/public/main.js",
+    "watch:sync": "browser-sync start -c sync.js",
+    "watch": "npm-run-all --parallel watch:*"
   },
   "repository": {
     "type": "git",
@@ -49,6 +49,8 @@
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "mime-types": "^2.1.17",
+    "multer": "^1.3.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   }

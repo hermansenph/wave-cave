@@ -5,8 +5,22 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { image: './images/image-placeholder.png' }
+    this.state = {
+      image: './images/image-placeholder.png',
+      imageDone: null,
+      song: '',
+      songDone: null
+    }
     this.updateArt = this.updateArt.bind(this)
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    fetch('http://localhost:3000/upload', {
+      method: 'POST',
+      body: formData
+    })
   }
 
   updateArt(event) {
@@ -19,12 +33,11 @@ export default class App extends React.Component {
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0])
     }
-    console.log(event.target.files[0])
   }
 
   render() {
     return (
-      <UploadForm handleChange={ this.updateArt } updateArt={ this.updateArt } image={ this.state.image }/>
+      <UploadForm handleSubmit={ this.handleSubmit } updateArt={ this.updateArt } image={ this.state.image }/>
     )
   }
 }

@@ -5,6 +5,7 @@ const mime = require('mime-types')
 const crypto = require('crypto')
 const fs = require('fs')
 const Storage = require('@google-cloud/storage')
+const { MongoClient } = require('mongodb')
 require('dotenv').config()
 
 const storageGoogle = new Storage()
@@ -58,6 +59,17 @@ function createApp() {
 
       googleStorage(uploadData.image)
       googleStorage(uploadData.audio)
+
+      MongoClient.connect(process.env.MONGODB_URI, async (err, db) => {
+
+        if (err) console.log(err)
+
+        const collection = db.collection('uploads')
+
+        await collection.insertOne(uploadData)
+
+        db.close()
+      })
 
     })
   return app

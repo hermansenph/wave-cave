@@ -58,3 +58,5 @@ typings/
 .env
 
 server/public/main.js
+key.json
+server/uploads

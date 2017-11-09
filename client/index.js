@@ -4,5 +4,5 @@ import App from './app'
 
 ReactDOM.render(
   <App/>,
-  document.querySelector('#upload')
+  document.querySelector('#wave-cave')
 )

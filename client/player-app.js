@@ -5,12 +5,13 @@ export default class PlayerApp extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      songList: [{
-        Title: 'Man Not Hot',
-        Artist: 'Big Shaq',
-        Song: 'songs/man.mp3',
-        Image: './images/image-placeholder.png'
-      }],
+      songList: [],
+      song: {
+        title: '',
+        artist: '',
+        audio: '',
+        image: ''
+      },
       playPause: './images/play-button.svg',
       duration: 0,
       audio: ''
@@ -19,12 +20,21 @@ export default class PlayerApp extends React.Component {
     this.setVolume = this.setVolume.bind(this)
     this.scrubTime = this.scrubTime.bind(this)
     this.setAudio = this.setAudio.bind(this)
+    this.renderSong = this.renderSong.bind(this)
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+
+    const songsResponse = await fetch('http://localhost:3000/songs')
+    const songs = await songsResponse.json()
+    this.setState({
+      songList: songs
+    })
+
     setInterval(() => {
       this.time.value = this.audio.currentTime
     }, 15)
+
   }
 
   async setAudio(song) {
@@ -63,21 +73,38 @@ export default class PlayerApp extends React.Component {
     this.audio.currentTime = this.time.value
   }
 
+  renderSong({ artist, audio, image, title }, index) {
+    const id = 'song-' + index
+    const audioURL = './songs/' + audio
+    const imageURL = './songs/' + image
+
+    return <div className="song">
+      <input
+        className="song-list-play"
+        id={ id }
+        onClick={ () => {
+
+          if (this.audio.src !== 'http://localhost:3000/songs/' + audio) {
+            this.setAudio(audioURL)
+          }
+
+          else this.playAudio()
+
+        }}
+        type="image"
+        src={ this.state.playPause }
+      >
+      </input>
+      <img className="song-image" src={ imageURL }/>
+      <p> Title: { title }<br/> Artist: { artist }</p>
+    </div>
+  }
+
   render() {
     return (
       <div id="songs">
         <div id="song-list">
-          <div className="song">
-            <input
-              id="song-list-play"
-              onClick={ () => this.setAudio(this.state.songList[0].Song) }
-              type="image"
-              src={ this.state.playPause }
-            >
-            </input>
-            <img className="song-image" src={ this.state.songList[0].Image }/>
-            <p> Title: { this.state.songList[0].Title }<br/> Artist: { this.state.songList[0].Artist }</p>
-          </div>
+          {this.state.songList.map(this.renderSong)}
         </div>
         <div id="audio-player">
           <div id="song-player-play-div">

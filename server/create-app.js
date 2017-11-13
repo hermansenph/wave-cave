@@ -25,6 +25,10 @@ function createApp(gateway) {
 
       res.status(201).send('Upload Completed')
     })
+    .get('/songs/:song', (req, res) => {
+      const song = req.params.song
+      res.sendFile(path.join(__dirname, 'songs/' + song))
+    })
 
   return app
 }

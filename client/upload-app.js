@@ -1,7 +1,7 @@
 import React from 'react'
 import UploadForm from './upload-form'
 
-export default class App extends React.Component {
+export default class UploadApp extends React.Component {
 
   constructor(props) {
     super(props)

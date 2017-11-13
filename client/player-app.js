@@ -12,7 +12,7 @@ export default class PlayerApp extends React.Component {
         Image: './images/image-placeholder.png'
       }],
       playPause: './images/play-button.svg',
-      duration: '',
+      duration: 0,
       audio: ''
     }
     this.playAudio = this.playAudio.bind(this)
@@ -31,18 +31,23 @@ export default class PlayerApp extends React.Component {
     await this.setState({
       audio: song
     })
-    this.playAudio()
+    this.audio.src = this.state.audio
+    this.audio.addEventListener('loadedmetadata', () => {
+      this.state.duration = this.audio.duration
+      this.playAudio()
+    })
   }
 
-  playAudio() {
+  async playAudio() {
 
     if (this.state.playPause === './images/play-button.svg') {
-      this.audio.play()
-      this.setState({
+      await this.setState({
         playPause: './images/pause-button.png',
         duration: this.audio.duration
       })
+      this.audio.play()
     }
+
     else {
       this.audio.pause()
       this.setState({playPause: './images/play-button.svg'})

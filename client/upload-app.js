@@ -20,7 +20,7 @@ export default class UploadApp extends React.Component {
     event.persist()
     const formData = new FormData(event.target)
     this.props.displayUpload()
-    await fetch('http://localhost:3000/upload', {
+    await fetch('/upload', {
       method: 'POST',
       body: formData
     })

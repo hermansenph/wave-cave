@@ -1,14 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import UploadApp from './upload-app'
-import PlayerApp from './player-app'
-
-// ReactDOM.render(
-//   <UploadApp/>,
-//   document.querySelector('#upload-form')
-// )
+import App from './app'
 
 ReactDOM.render(
-  <PlayerApp/>,
-  document.querySelector('#song-player')
+  <App />,
+  document.querySelector('#wave-cave')
 )

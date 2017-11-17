@@ -3,6 +3,6 @@ import ReactDOM from 'react-dom'
 import App from './app'
 
 ReactDOM.render(
-  <App/>,
-  document.querySelector('#upload')
+  <App />,
+  document.querySelector('#wave-cave')
 )

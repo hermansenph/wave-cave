@@ -1,43 +1,37 @@
 import React from 'react'
-import UploadForm from './upload-form'
+import SonglistApp from './songlist-app'
+import NavbarApp from './navbar-app'
 
 export default class App extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      image: './images/image-placeholder.png',
-      imageDone: null,
-      song: '',
-      songDone: null
+      songList: []
     }
-    this.updateArt = this.updateArt.bind(this)
+    this.getSongs = this.getSongs.bind(this)
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-    const formData = new FormData(event.target)
-    fetch('http://localhost:3000/upload', {
-      method: 'POST',
-      body: formData
-    })
+  componentWillMount() {
+    this.getSongs()
   }
 
-  updateArt(event) {
-    const reader = new FileReader()
+  async getSongs() {
+    const songsResponse = await fetch('/songs')
+    const songs = await songsResponse.json()
 
-    reader.addEventListener('load', () => {
-      this.setState({image: reader.result})
+    this.setState({
+      songList: songs
     })
-
-    if (event.target.files[0]) {
-      reader.readAsDataURL(event.target.files[0])
-    }
   }
 
   render() {
     return (
-      <UploadForm handleSubmit={ this.handleSubmit } updateArt={ this.updateArt } image={ this.state.image }/>
+      <div>
+        <NavbarApp getSongs={this.getSongs}/>,
+        <SonglistApp songList={this.state.songList}/>
+      </div>
     )
   }
+
 }

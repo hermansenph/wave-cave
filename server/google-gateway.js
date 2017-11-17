@@ -1,15 +1,19 @@
-const Storage = require('@google-cloud/storage')
+const storage = require('@google-cloud/storage')
+const gcs = storage({
+  projectID: 'still-bank-185318',
+  credentials: JSON.parse(process.env.CREDENTIALS)
+})
 const fs = require('fs')
 require('dotenv').config()
 
-const storage = new Storage()
+const bucket = gcs.bucket('wave-cave')
+console.log(process.env.CREDENTIALS)
 
 module.exports = function googleGateway(file, folder) {
   return {
 
     async upload() {
-      await storage
-        .bucket('wave-cave')
+      await bucket
         .upload('server/uploads/' + file)
         .catch(err => console.error('ERROR:', err))
         .then(() => fs.unlink('server/uploads/' + file))
@@ -18,8 +22,7 @@ module.exports = function googleGateway(file, folder) {
 
     download() {
       return new Promise((resolve, reject) => {
-        storage
-          .bucket('wave-cave')
+        bucket
           .file(file)
           .download({
             destination: 'server/' + folder + '/' + file

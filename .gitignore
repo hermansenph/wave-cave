@@ -60,3 +60,5 @@ typings/
 server/public/main.js
 key.json
 server/uploads
+server/images
+server/songs

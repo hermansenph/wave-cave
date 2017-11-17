@@ -12,15 +12,21 @@ export default class UploadApp extends React.Component {
       songDone: null
     }
     this.updateArt = this.updateArt.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
+    event.persist()
     const formData = new FormData(event.target)
-    fetch('http://localhost:3000/upload', {
+    this.props.displayUpload()
+    await fetch('http://localhost:3000/upload', {
       method: 'POST',
       body: formData
     })
+    this.props.getSongs()
+    event.target.reset()
+    this.setState({image: './images/image-placeholder.png'})
   }
 
   updateArt(event) {
@@ -37,7 +43,11 @@ export default class UploadApp extends React.Component {
 
   render() {
     return (
-      <UploadForm handleSubmit={ this.handleSubmit } updateArt={ this.updateArt } image={ this.state.image }/>
+      <UploadForm
+        handleSubmit={ this.handleSubmit }
+        updateArt={ this.updateArt }
+        image={ this.state.image }
+        hiddenClass={ this.props.hiddenClass }/>
     )
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function UploadForm({ image, updateArt, handleSubmit }) {
+export default function UploadForm({ image, updateArt, handleSubmit, hiddenClass }) {
   return (
-    <div className="container">
-      <div className="card">
+    <div id="upload-form" className={'container ' + hiddenClass}>
+      <div id="upload-form-card" className="card">
         <form onSubmit={ handleSubmit }>
           <div className="row row-grid">
             <div className="mx-auto">
@@ -25,12 +25,12 @@ export default function UploadForm({ image, updateArt, handleSubmit }) {
             </div>
           </div>
           <div className="row row-grid">
-            <div className="col-4 mx-auto">
+            <div className="col-4 mx-auto" id="form-song-title">
               <input className="form-control" type="text" name="title" placeholder="Title"/>
             </div>
           </div>
           <div className="row row-grid">
-            <div className="col-4 mx-auto">
+            <div className="col-4 mx-auto" id="form-song-artist">
               <input className="form-control" type="text" name="artist" placeholder="Artist"/>
             </div>
           </div>

@@ -33,8 +33,8 @@ export default class SonglistApp extends React.Component {
       return song.image
     })
 
-    await Promise.all(urls.map((url) => {
-      return fetch('/images-download/' + url)
+    await Promise.all(urls.map(async (url) => {
+      await fetch('/images-download/' + url)
     }))
 
     const imageList = urls.map(url => {

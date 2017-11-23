@@ -7,7 +7,6 @@ const fs = require('fs')
 require('dotenv').config()
 
 const bucket = gcs.bucket('wave-cave')
-console.log(process.env.CREDENTIALS)
 
 module.exports = function googleGateway(file, folder) {
   return {
@@ -20,16 +19,34 @@ module.exports = function googleGateway(file, folder) {
 
     },
 
-    download() {
-      return new Promise((resolve, reject) => {
-        bucket
-          .file(file)
-          .download({
-            destination: 'server/' + folder + '/' + file
+    async download() {
+
+      function makeDirectory() {
+        return new Promise((resolve, reject) => {
+          console.log('PROMISE SUCCESFUL')
+          fs.stat('server/' + folder, (err, stats) => {
+
+            if (err) {
+              console.log('MAKING DIRECTORY')
+              fs.mkdir('server/' + folder)
+              resolve()
+            }
+
+            else resolve()
+
           })
-          .catch(err => console.error('ERROR:', err))
-          .then(() => resolve('downloaded'))
-      })
+        })
+      }
+
+      await makeDirectory()
+
+      await bucket
+        .file(file)
+        .download({
+          destination: 'server/' + folder + '/' + file
+        })
+        .catch(err => console.error('ERROR:', err))
+        .then(() => console.log('downloaded'))
     }
   }
 }

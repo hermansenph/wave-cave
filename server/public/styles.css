@@ -14,7 +14,7 @@ body {
 }
 
 #songs {
-  margin: 20px 0;
+  margin: 70px 0 90px;
   text-align: center;
 }
 
@@ -71,7 +71,12 @@ body {
 
 #navbar {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgb(20, 20, 20);
   height: 75px;
 }
 
@@ -118,7 +123,6 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  z-index: 1000;
 }
 
 #upload-form-card {
